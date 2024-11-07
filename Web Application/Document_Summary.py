@@ -29,7 +29,7 @@ if uploaded_file is not None:
     # Summarize button
     if st.button("Summarize"):
         # Make a POST request to the machine learning model
-        url = "https://your-model-url.com/summarize"  # Replace with your actual URL
+        url = "http://localhost:8501"  # Replace with your actual URL
         response = requests.post(url, json={"text": content})
 
         if response.status_code == 200:
