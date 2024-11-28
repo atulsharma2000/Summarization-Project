@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-light text-center vh-100 d-flex justify-content-center align-items-center flex-column">
+    <h1>Welcome, {{ session['username'] }}!</h1>
+    <p>You are now logged in.</p>
+
+    <div class="container mt-4">
+        <h2>Summarize News Article</h2>
+        <form method="post" action="{{ url_for('index') }}">
+            <textarea id="article" name="article" rows="5" class="form-control" placeholder="Paste your news article here..." required></textarea>
+            <button type="submit" class="btn btn-primary mt-2">Summarize</button>
+        </form>
+
+        {% if summary %}
+            <h3 class="mt-4">Summary:</h3>
+            <div class="alert alert-info">{{ summary }}</div>
+        {% endif %}
+        
+    </div>
+
+    <a href="{{ url_for('logout') }}" class="btn btn-danger mt-4">Logout</a> 
+</body>
+</html>

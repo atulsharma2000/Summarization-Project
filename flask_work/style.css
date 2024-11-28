@@ -1,0 +1,103 @@
+/* Store this code in 'style.css' file inside the 'static' folder */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8; /* Light background color for contrast */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+}
+
+.container {
+    max-width: 600px; /* Maximum width for the content */
+    margin: auto; /* Center the container */
+    padding: 20px;
+    background-color: white; /* White background for content area */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); /* Deeper shadow for depth */
+}
+
+header {
+    text-align: center; /* Center header text */
+    background-color: #007bff; /* Bright blue header */
+    color: white;
+    padding: 20px;
+    border-radius: 12px 12px 0 0; /* Rounded top corners */
+}
+
+.title {
+    margin: 0;
+    font-size: 2em; /* Larger title size */
+}
+
+.content {
+    padding: 20px; /* Padding inside content area */
+}
+
+.textbox {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 12px; /* Increased padding for comfort */
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc; /* Light gray border */
+    transition: border-color 0.3s ease; /* Smooth transition on focus */
+}
+
+.textbox:focus {
+    border-color: #007bff; /* Change border color on focus */
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745; /* Green button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold; /* Bold text for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.msg {
+    margin-bottom: 15px;
+    color: #d9534f; /* Red color for error messages */
+}
+
+footer {
+   text-align:center; 
+   margin-top:30px; 
+   font-size:.8em; 
+   color:#666; 
+}
+
+a {
+    color: #007bff; /* Link color */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline links on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+   .container {
+       padding: 15px;
+   }
+
+   .title {
+       font-size: 1.5em; /* Smaller title size on mobile devices */
+   }
+
+   .textbox, .btn {
+       padding: 10px;
+   }
+}
