@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import fitz  # PyMuPDF
 
+
 # Function to extract text from PDF
 def extract_text_from_pdf(file):
     doc = fitz.open(stream=file.read(), filetype="pdf")
@@ -9,6 +10,7 @@ def extract_text_from_pdf(file):
     for page in doc:
         text += page.get_text()
     return text
+
 
 # Set the title of the app
 st.title("Document Summarization")

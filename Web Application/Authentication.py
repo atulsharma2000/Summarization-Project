@@ -5,10 +5,10 @@ st.title('Streamlit Google Auth Example')
 
 if 'connected' not in st.session_state:
     authenticator = Authenticate(
-        secret_credentials_path = '',
+        secret_credentials_path='/client_secret_716998163763-duljlbbe7pkkiq5tl7mfkj24ng1jlkut.apps.googleusercontent.com.json',
         cookie_name='my_cookie_name',
         cookie_key='this_is_secret',
-        redirect_uri = 'http://localhost:8501',
+        redirect_uri='http://localhost:8501',
     )
     st.session_state["authenticator"] = authenticator
 
@@ -20,7 +20,7 @@ st.session_state["authenticator"].login()
 
 if st.session_state['connected']:
     st.image(st.session_state['user_info'].get('picture'))
-    st.write('Hello, '+ st.session_state['user_info'].get('name'))
-    st.write('Your email is '+ st.session_state['user_info'].get('email'))
+    st.write('Hello, ' + st.session_state['user_info'].get('name'))
+    st.write('Your email is ' + st.session_state['user_info'].get('email'))
     if st.button('Log out'):
         st.session_state["authenticator"].logout()
