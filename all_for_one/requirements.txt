@@ -1,0 +1,10 @@
+Flask
+flask-mysqldb
+transformers
+torch
+selenium
+beautifulsoup4
+pandas
+matplotlib
+seaborn
+mysql-connector-python

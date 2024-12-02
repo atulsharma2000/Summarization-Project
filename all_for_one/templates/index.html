@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .table {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .table th, .table td {
+            padding: 15px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .table td {
+            background-color: #f9f9f9;
+        }
+        .content-preview {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .content {
+            display: none;
+            font-style: italic;
+            color: #555;
+            padding-top: 10px;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+            padding: 8px 16px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        #summaryResult {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        #summaryResult h2 {
+            color: #007bff;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>News Articles</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Link</th>
+            <th>Content</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in news %}
+        <tr>
+            <td>{{ article[1] }}</td>
+            <td><a href="{{ article[2] }}" target="_blank" class="text-primary">{{ article[2] }}</a></td>
+            <td>
+                <span class="content-preview" onclick="toggleContent(this)">
+                    {{ article[3][:100] }}...
+                </span>
+                <span class="content">{{ article[3] }}</span>
+            </td>
+            <td>
+                <button class="btn btn-success"
+                        data-content="{{ article[3] | escape }}"
+                        onclick="summarizeContent(this)">
+                    Summarize
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Area to display summary results -->
+    <div id="summaryResult">
+        <h2>Summary:</h2>
+        <p id="summaryText"></p>
+    </div>
+
+    <div id="errorAlert" class="alert alert-danger" style="display: none;">
+        <strong>Error!</strong> Something went wrong while fetching the summary.
+    </div>
+</div>
+
+<!-- Footer Section -->
+<div class="footer">
+    <p>&copy; 2024 News App. All Rights Reserved.</p>
+</div>
+
+<script>
+    // Function to toggle between preview and full content
+    function toggleContent(element) {
+        const fullContent = element.nextElementSibling; // Get the next sibling (full content)
+        if (fullContent.style.display === "none") {
+            fullContent.style.display = "inline"; // Show full content
+            element.style.display = "none"; // Hide preview
+        } else {
+            fullContent.style.display = "none"; // Hide full content
+            element.style.display = "inline"; // Show preview
+        }
+    }
+
+    // Function to handle summarization
+    function summarizeContent(button) {
+        const content = button.getAttribute('data-content'); // Get the content to summarize
+        fetch('/summarize', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: content }) // Send the content as JSON
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url; // Redirect to the summary page
+            } else if (data.summary) {
+                // Display the summary directly on the page
+                document.getElementById('summaryResult').style.display = 'block';
+                document.getElementById('summaryText').innerText = data.summary;
+            } else {
+                document.getElementById('errorAlert').style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('errorAlert').style.display = 'block';
+        });
+    }
+</script>
+
+</body>
+</html>
