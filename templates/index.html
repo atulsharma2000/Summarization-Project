@@ -7,8 +7,17 @@
 </head>
 <body>
     <h1>Sentiment Analysis Results</h1>
-    {% if plot_data %}
-        <img src="data:image/png;base64,{{ plot_data }}" alt="Sentiment Analysis Plot">
+    {% if plots %}
+        {% for plot in plots %}
+            <div>
+                <h2>{{ plot.title }}</h2>
+                {% if plot.plot %}
+                    <img src="data:image/png;base64,{{ plot.plot }}" alt="Sentiment Analysis Plot for {{ plot.title }}">
+                {% else %}
+                    <p>No plot available for this article.</p>
+                {% endif %}
+            </div>
+        {% endfor %}
     {% else %}
         <p>No data available.</p>
     {% endif %}

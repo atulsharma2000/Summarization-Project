@@ -10,7 +10,7 @@ app.secret_key = 'your_secret_key'  # Use an environment variable in production
 mydb = mysql.connector.connect(
     host='localhost',
     user='root', 
-    password='manager',
+    password='12345678',
     database='summarylogin'
 )
 
