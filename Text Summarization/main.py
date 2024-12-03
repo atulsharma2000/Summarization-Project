@@ -13,7 +13,7 @@ app = Flask(__name__)
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="manager",
+    password="12345678",
     database="news_db"  # Specify the database here
 )
 
